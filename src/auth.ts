@@ -216,7 +216,7 @@ const authorizeWithLocalhost = async (
   const server = await new Promise<Server>(resolve => {
     const s = createServer();
     enableDestroy(s);
-    s.listen(0, () => resolve(s));
+    s.listen(parseInt(process.env.port ?? "0", 10), () => resolve(s));
   });
   const {port} = server.address() as AddressInfo;
   const client = new OAuth2Client({...oAuth2ClientOptions, redirectUri: `http://localhost:${port}`});
